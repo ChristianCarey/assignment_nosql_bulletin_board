@@ -1,0 +1,1 @@
+var BB = angular.module('BB', []);

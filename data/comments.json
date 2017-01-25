@@ -1,0 +1,11 @@
+{
+  '1' : {
+    'author' : {
+      'name' : 'Ben Johnson'
+    },
+    'content' : 'I disagree.',
+    'createdAt' : '2017-01-02',
+    'upvotes' : '4',
+    'downvotes' : '2'
+  }
+}

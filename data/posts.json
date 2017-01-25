@@ -1,0 +1,21 @@
+{
+  '1': {
+    'title' : 'The Greatest Post Ever',
+    'content' : 'So many brilliant things to say.',
+    'author' : {
+      'name' : 'Shakespeare'
+    },
+    'createdAt' : '2017-01-01',
+    'comments' : {
+      '1' : {
+        'author' : {
+          'name' : 'Ben Johnson'
+        },
+        'content' : 'I disagree.',
+        'createdAt' : '2017-01-02',
+        'upvotes' : '4',
+        'downvotes' : '2'
+      }
+    }
+  }
+}
