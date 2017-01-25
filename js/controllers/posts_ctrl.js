@@ -4,12 +4,14 @@ BB.controller('PostsCtrl', ['$scope', 'postsService', 'commentsService', '_',
     $scope.posts = {};
 
     postsService.getAll().then(function(posts) {
-      console.log(posts)
+      // console.log(posts)
       _.each(posts, function(post, id) {
         _extendPost(post);
       });
       // console.log(posts['1'].comments());
-      angular.copy(posts, $scope.posts);
+      // angular.copy(posts, $scope.posts);
+      // TODO I CHANGED THIS
+      $scope.posts = posts;
     })
 
     $scope.createComment = function(form, params, postID) {
