@@ -9,4 +9,8 @@ BB.factory('postsService', ['$http', function($http) {
       })
     ;
   }
+
+  return {
+    getAll: getAll
+  }
 }]); 

@@ -5,7 +5,6 @@
     },
     'content' : 'I disagree.',
     'createdAt' : '2017-01-02',
-    'upvotes' : '4',
-    'downvotes' : '2'
+    'votes' : '2'
   }
 }
