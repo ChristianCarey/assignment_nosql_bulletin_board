@@ -1,0 +1,36 @@
+<script type="text/ng-template"  id="comment-tree.html">
+  <span class="arrow" ng-click="comment.upvote()">&uarr;</span>
+  <span class="arrow" ng-click="comment.downvote()">&darr;</span>
+  <h3 class='vote-count'>{{ comment.votes }}</h3> | 
+  <h3>{{ comment.author.name }}</h3>
+  <p>Commented on {{ comment.createdAt | date: 'MMMM d, y'}}</p>
+  <p>"{{ comment.content }}"</p>
+  <form name="newComment" ng-submit="createComment(newComment, newComment, comment.id, 'comment')" class="form-inline">
+    <input type="text" class="form-control" ng-model="newComment.author.name" placeholder="author">
+    <input type="text" class="form-control" ng-model="newComment.content" placeholder="content">
+    <input type="submit" class="btn btn-primary" value="Comment">
+  </form>
+
+  <!-- <div class="comments"  ng-if="comment.comments().length" >
+    <comment class="comment" ng-repeat="comment in comment.comments() | orderBy:'votes':true"></comment>
+  </div> -->
+    <ul>
+        <li ng-repeat="comment in comment.comments" ng-include="'comment-tree.html'"></li>
+    </ul>
+</script>
+
+<span class="arrow" ng-click="comment.upvote()">&uarr;</span>
+<span class="arrow" ng-click="comment.downvote()">&darr;</span>
+<h3 class='vote-count'>{{ comment.votes }}</h3> | 
+<h3>{{ comment.author.name }}</h3>
+<p>Commented on {{ comment.createdAt | date: 'MMMM d, y'}}</p>
+<p>"{{ comment.content }}"</p>
+<form name="newComment" ng-submit="createComment(newComment, newComment, comment.id, 'comment')" class="form-inline">
+  <input type="text" class="form-control" ng-model="newComment.author.name" placeholder="author">
+  <input type="text" class="form-control" ng-model="newComment.content" placeholder="content">
+  <input type="submit" class="btn btn-primary" value="Comment">
+</form>
+
+<ul>
+    <li ng-repeat="comment in comment.comments" ng-include="'comment-tree.html'"></li>
+</ul>

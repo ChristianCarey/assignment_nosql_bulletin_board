@@ -33,11 +33,18 @@ BB.factory('commentsService', ['$http', 'postsService', '_', function($http, pos
     _extendComment(comment);
     if (comment.commentableType === "post") {
       postsService.addComment(comment); 
-    } 
+    } else {
+      _addChildComment(comment);
+    }
     _updateRecentComments(comment);
     _comments[comment.id] = comment;
     _incrementID();
     return _comments[comment.id];
+  }
+
+  var _addChildComment = function(comment) {
+    var parentComment = find(comment.commentable.id);
+    parentComment.commentIDs.push(comment.id);
   }
 
   var _extendComment = function(comment) {
@@ -49,6 +56,7 @@ BB.factory('commentsService', ['$http', 'postsService', '_', function($http, pos
     };
 
     comment.comments = function() {
+      if (this.commentIDs.length === 0) { return false }
       return this.commentIDs.map(find);
     }
   };
@@ -58,7 +66,7 @@ BB.factory('commentsService', ['$http', 'postsService', '_', function($http, pos
       _recentComments.splice(-1, 1);
     }
     _recentComments.unshift(comment);
-    console.log(comment)
+    // console.log(comment)
   }
   
   var _nextID = function() {
@@ -95,7 +103,7 @@ BB.factory('commentsService', ['$http', 'postsService', '_', function($http, pos
       }
       if (recentCommentIDs.length === 3) { break }
     }
-    console.log(recentCommentIDs)
+    // console.log(recentCommentIDs)
     return recentCommentIDs;
   }
 

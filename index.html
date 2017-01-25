@@ -18,6 +18,9 @@
     <script src="js/controllers/posts_ctrl.js"></script>
     <script src="js/controllers/recent_comments_ctrl.js"></script>
 
+    <!-- directives -->
+    <script src="js/directives/commentDirective.js"></script>
+
     <!-- style -->
     <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'>
     <link rel='stylesheet' href='css/main.css'>
@@ -59,19 +62,7 @@
               <input type="submit" value="Create Comment" class="btn btn-primary">
             </form>
             <section class="comments">
-              <article class="comment" ng-repeat="comment in post.comments() | orderBy:'votes':true">
-                <span class="arrow" ng-click="comment.upvote()">&uarr;</span>
-                <span class="arrow" ng-click="comment.downvote()">&darr;</span>
-                <h3 class='vote-count'>{{ comment.votes }}</h3> | 
-                <h3>{{ comment.author.name }}</h3>
-                <p>Commented on {{ comment.createdAt | date: 'MMMM d, y'}}</p>
-                <p>"{{ comment.content }}"</p>
-                <form name="newComment" ng-submit="createComment(newComment, newComment, comment.id, 'comment')" class="form-inline">
-                  <input type="text" class="form-control" ng-model="newComment.author.name" placeholder="author">
-                  <input type="text" class="form-control" ng-model="newComment.content" placeholder="content">
-                  <input type="submit" class="btn btn-primary" value="Comment">
-                </form>
-              </article>
+              <comment class="comment" ng-repeat="comment in post.comments() | orderBy:'votes':true"></comment>
             </section>
           </article>
         </main>
