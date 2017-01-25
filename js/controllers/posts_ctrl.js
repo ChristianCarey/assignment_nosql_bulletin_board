@@ -10,6 +10,9 @@ BB.controller('PostsCtrl', ['$scope', 'postsService', 'commentsService', '_',
       var comment = angular.copy(params);
       comment.postID = postID;
       comment = commentsService.create(comment);
+      params.author.name = null;
+      params.content = null;
+      form.$setPristine();
     }
 
   }]);

@@ -1,16 +1,19 @@
 BB.factory('commentsService', ['$http', 'postsService', '_', function($http, postsService, _) {
   
   var _comments = {},
+      _recentComments = [],
       _id;
 
   $http.get('/data/comments.json').then(function(response){
     angular.copy(response.data, _comments);
   })
 
+  $http.get('/data/comments_by_date.json').then(function(response) {
+    angular.copy(findBatch(_limitThree(response.data)), _recentComments);
+  });
+
   var recent = function() {
-    return $http.get('/data/comments_by_date.json').then(function(response) {
-      return findBatch(_limitThree(response.data));
-    });
+    return _recentComments;
   }
 
   var find = function(id) {
@@ -22,21 +25,33 @@ BB.factory('commentsService', ['$http', 'postsService', '_', function($http, pos
   }
 
   var create = function(comment) {
-    comment.created_at = new Date();
+    comment.createdAt = new Date().toISOString().slice(0, 10);
     comment.votes = 0;
     comment.id = _nextID();
-    // return $http.post('/data/comments.json', comment).then(function(response) {
-      // return response.data;
-    // });
     postsService.addComment(comment);
+    _updateRecentComments(comment);
     _comments[comment.id] = comment;
     _incrementID();
     return _comments[comment.id];
   }
 
-  var _updatePost = function(comment) {
+  var _extendComment(comment) = function {
+    comment.upvote = function() {
+      this.vote++;
+    };
+    comment.downvote = function() {
+      this.vote--;
+    }
   };
-
+  
+  var _updateRecentComments = function(comment) {
+    if (_recentComments.length === 3) {
+      _recentComments.splice(-1, 1);
+    }
+    _recentComments.unshift(comment);
+    console.log(comment)
+  }
+  
   var _nextID = function() {
     if (!_id) {
       if (_.isEmpty(_comments)) {
@@ -63,7 +78,6 @@ BB.factory('commentsService', ['$http', 'postsService', '_', function($http, pos
     var dates = _.sortBy(Object.keys(collection), function(date) {
       return date;
     }).reverse();
-    console.log(dates)
     for (var i = 0; i < dates.length; i++) {
       var date = dates[i];
       for (var j = 0; j < collection[date].length; j++) {
