@@ -1,6 +1,7 @@
-BB.factory('commentsService', ['$http', function($http) {
+BB.factory('commentsService', ['$http', 'postsService' function($http, postsService) {
   
-  var _comments = {};
+  var _comments = {},
+      _id;
 
   $http.get('/data/comments.json').then(function(response){
     angular.copy(response.data, _comments);
@@ -8,7 +9,7 @@ BB.factory('commentsService', ['$http', function($http) {
 
   var recent = function() {
     return $http.get('/data/comments_by_date.json').then(function(response) {
-      return _limitThree(findBatch(response.data));
+      return findBatch(_limitThree(response.data));
     });
   }
 
@@ -18,6 +19,27 @@ BB.factory('commentsService', ['$http', function($http) {
 
   var findBatch = function(ids) {
     return ids.map(find);
+  }
+
+  var create = function(comment) {
+    comment.created_at = new Date();
+    comment.votes = 0;
+    comment.id = _nextID();
+    return $http.post('/data/comments.json', comment).then(function(response) {
+      _comments[response.data.id] = response.data;
+      _incrementID();
+      return response.data;
+    });
+  }
+
+  var _nextID = function() {
+    if (!_id) {
+      if ()
+    }
+  };
+
+  var _incrementID = function() {
+    _id++;
   }
 
   var _limitThree = function(collection) {
@@ -30,6 +52,7 @@ BB.factory('commentsService', ['$http', function($http) {
       }
       if (recentComments.length === 3) { break }
     }
+    console.log(recentComments)
     return recentComments;
   }
 
