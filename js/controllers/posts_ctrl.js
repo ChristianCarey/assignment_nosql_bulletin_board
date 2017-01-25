@@ -14,10 +14,13 @@ BB.controller('PostsCtrl', ['$scope', 'postsService', 'commentsService', '_',
       $scope.posts = posts;
     })
 
-    $scope.createComment = function(form, params, postID) {
+    $scope.createComment = function(form, params, commentableID, commentableType) {
       if (!form.$valid) { return }
       var comment = angular.copy(params);
-      comment.postID = postID;
+      comment.commentable = {
+        id: commentableID,
+        type: commentableType
+      };
       comment = commentsService.create(comment);
       params.author.name = null;
       params.content = null;

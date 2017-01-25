@@ -47,7 +47,7 @@
             <h3>{{ post.title }}</h3>
             <p>Posted on {{ post.createdAt | date: 'MMMM d, y'}}</p>
             <p>{{ post.content }}</p>
-            <form name="newComment" ng-submit="createComment(newComment, comment, post.id)">
+            <form name="newComment" ng-submit="createComment(newComment, comment, post.id, 'post')">
               <div class="form-group">
                 <label>Author</label>
                 <input type="text" class="form-control" ng-model="comment.author.name" required>
@@ -66,6 +66,11 @@
                 <h3>{{ comment.author.name }}</h3>
                 <p>Commented on {{ comment.createdAt | date: 'MMMM d, y'}}</p>
                 <p>"{{ comment.content }}"</p>
+                <form name="newComment" ng-submit="createComment(newComment, newComment, comment.id, 'comment')" class="form-inline">
+                  <input type="text" class="form-control" ng-model="newComment.author.name" placeholder="author">
+                  <input type="text" class="form-control" ng-model="newComment.content" placeholder="content">
+                  <input type="submit" class="btn btn-primary" value="Comment">
+                </form>
               </article>
             </section>
           </article>

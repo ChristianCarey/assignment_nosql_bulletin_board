@@ -31,7 +31,9 @@ BB.factory('commentsService', ['$http', 'postsService', '_', function($http, pos
     comment.votes = 0;
     comment.id = _nextID();
     _extendComment(comment);
-    postsService.addComment(comment);
+    if (comment.commentableType === "post") {
+      postsService.addComment(comment); 
+    } 
     _updateRecentComments(comment);
     _comments[comment.id] = comment;
     _incrementID();
@@ -44,6 +46,10 @@ BB.factory('commentsService', ['$http', 'postsService', '_', function($http, pos
     };
     comment.downvote = function() {
       this.votes--;
+    };
+
+    comment.comments = function() {
+      return this.commentIDs.map(find);
     }
   };
   

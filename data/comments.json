@@ -6,7 +6,8 @@
     },
     "content" : "I disagree.",
     "createdAt" : "2017-01-02",
-    "votes" : 2
+    "votes" : 2,
+    "commentIDs" : []
   },
 
   "2" : {
@@ -16,6 +17,7 @@
     },
     "content" : "I vehemently disagree.",
     "createdAt" : "2017-01-03",
-    "votes" : 3
+    "votes" : 3,
+    "commentIDs" : []
   }
 }

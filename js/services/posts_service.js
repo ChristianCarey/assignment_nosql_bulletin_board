@@ -11,7 +11,7 @@ BB.factory('postsService', ['$http', '_' , function($http, _) {
   }
 
   var addComment = function(comment) {
-    var post = _find(comment.postID);
+    var post = _find(comment.commentable.id);
     post.commentIDs.push(comment.id);
   };
 
