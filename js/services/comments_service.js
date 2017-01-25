@@ -10,7 +10,8 @@ BB.factory('commentsService', ['$http', 'postsService', '_', function($http, pos
   })
 
   $http.get('/data/comments_by_date.json').then(function(response) {
-    angular.copy(findBatch(_limitThree(response.data)), _recentComments);
+    var recentComments = findBatch(_limitThree(response.data));
+    recentComments.forEach(_updateRecentComments);
   });
 
   var recent = function() {
