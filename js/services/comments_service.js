@@ -25,13 +25,13 @@ BB.factory('commentsService', ['$http', 'postsService', '_', function($http, pos
     comment.created_at = new Date();
     comment.votes = 0;
     comment.id = _nextID();
-    return $http.post('/data/comments.json', comment).then(function(response) {
-      postsService.addComment(response.data);
-
-      _comments[response.data.id] = response.data;
-      _incrementID();
-      return response.data;
-    });
+    // return $http.post('/data/comments.json', comment).then(function(response) {
+      // return response.data;
+    // });
+    postsService.addComment(comment);
+    _comments[comment.id] = comment;
+    _incrementID();
+    return _comments[comment.id];
   }
 
   var _updatePost = function(comment) {
@@ -59,20 +59,21 @@ BB.factory('commentsService', ['$http', 'postsService', '_', function($http, pos
 
     // object with date key, array value
 
-    var recentComments = [];
+    var recentCommentIDs = [];
     var dates = _.sortBy(Object.keys(collection), function(date) {
       return date;
     }).reverse();
     console.log(dates)
-    for (dates do collection things)
-      for (var j = 0; j < date.commentIds.length; j++) {
-        recentComments.push(date.commentIds[j]);
-        if (recentComments.length === 3) { break }
+    for (var i = 0; i < dates.length; i++) {
+      var date = dates[i];
+      for (var j = 0; j < collection[date].length; j++) {
+        recentCommentIDs.push(collection[date][j]);
+        if (recentCommentIDs.length === 3) { break }
       }
-      if (recentComments.length === 3) { break }
+      if (recentCommentIDs.length === 3) { break }
     }
-    console.log(recentComments)
-    return recentComments;
+    console.log(recentCommentIDs)
+    return recentCommentIDs;
   }
 
   return {

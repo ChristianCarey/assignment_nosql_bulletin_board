@@ -1,17 +1,15 @@
-BB.controller('PostsCtrl', ['$scope', 'postsService', 'commentsServcice', '_',
+BB.controller('PostsCtrl', ['$scope', 'postsService', 'commentsService', '_',
   function($scope, postsService, commentsService, _) {
 
-    postsService.getAll().then(function(response) {
-      $scope.posts = response.data;
+    postsService.getAll().then(function(posts) {
+      $scope.posts = posts;
     })
 
-    $scope.createComment = function(form, postID) {
+    $scope.createComment = function(form, params, postID) {
       if (!form.$valid) { return }
-      var comment = angular.copy($scope.comment);
+      var comment = angular.copy(params);
       comment.postID = postID;
-      commentsService.create(comment).then(function(newComment) {
-        $scope.posts[postID].comments.push(newComment);
-      })
+      comment = commentsService.create(comment);
     }
 
   }]);
