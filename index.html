@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="BB", ng-controller="PostsCtrl">
+<html ng-app="BB">
   <head>
     <meta charset="UTF-8">
     <title>No SQL No Problem</title>
@@ -12,9 +12,11 @@
 
     <!-- services -->
     <script src="js/services/posts_service.js"></script>
+    <script src="js/services/comments_service.js"></script>
 
     <!-- controllers -->
     <script src="js/controllers/posts_ctrl.js"></script>
+    <script src="js/controllers/recent_comments_ctrl.js"></script>
 
     <!-- style -->
     <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'>
@@ -26,11 +28,13 @@
       <div class="row">
         <h1>Posts Bulletin Board</h1>
         
-        <aside class="col-xs-4">
+        <aside class="col-xs-4" ng-controller="RecentCommentsCtrl">
           <h2>Recent Comments</h2>
+          {{ recentComments }}
+          {{ recentComments }}
         </aside>
         
-        <main class="col-xs-8">
+        <main class="col-xs-8" ng-controller="PostsCtrl">
           <h2>Posts</h2>
         
           <article class="post" ng-repeat='post in posts'>
