@@ -1,10 +1,10 @@
-BB.factory('postsService', ['$http', function($http) {
+BB.factory('postsService', ['$http', '_' , function($http, _) {
   var _posts = [];
 
   var getAll = function() {
     return $http.get('/data/posts.json')
       .then(function(response) {
-        _posts = response.data;
+        angular.copy(response.data, _posts)
         return response.data;
       })
     ;
@@ -12,10 +12,11 @@ BB.factory('postsService', ['$http', function($http) {
 
   var addComment = function(comment) {
     var post = _find(comment.postID);
-    post.comments.push(comment);
+    post.commentIDs.push(comment.id);
   };
 
   var _find = function(id) {
+    console.log(_posts)
     return _posts[id];
   };
 

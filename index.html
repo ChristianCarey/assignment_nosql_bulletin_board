@@ -31,8 +31,8 @@
         <aside class="col-xs-4" ng-controller="RecentCommentsCtrl">
           <h2>Recent Comments</h2>
           <article class="comment" ng-repeat="comment in recentComments | orderBy:'created_at':true">
-            <span class="arrow">&uarr;</span>
-            <span class="arrow">&darr;</span>
+            <span class="arrow" ng-click="comment.upvote()">&uarr;</span>
+            <span class="arrow" ng-click="comment.downvote()">&darr;</span>
             <h3 class='vote-count'>{{ comment.votes }}</h3> | 
             <h3>{{ comment.author.name }}</h3>
             <p>Commented on {{ comment.createdAt | date: 'MMMM d, y'}}</p>
@@ -59,7 +59,7 @@
               <input type="submit" value="Create Comment" class="btn btn-primary">
             </form>
             <section class="comments">
-              <article class="comment" ng-repeat="comment in post.comments | orderBy:'votes':true">
+              <article class="comment" ng-repeat="comment in post.comments() | orderBy:'votes':true">
                 <span class="arrow" ng-click="comment.upvote()">&uarr;</span>
                 <span class="arrow" ng-click="comment.downvote()">&darr;</span>
                 <h3 class='vote-count'>{{ comment.votes }}</h3> | 

@@ -5,7 +5,8 @@ BB.factory('commentsService', ['$http', 'postsService', '_', function($http, pos
       _id;
 
   $http.get('/data/comments.json').then(function(response){
-    angular.copy(response.data, _comments);
+    var extendedComments = _.each(response.data,_extendComment);
+    angular.copy(extendedComments, _comments);
   })
 
   $http.get('/data/comments_by_date.json').then(function(response) {
@@ -28,6 +29,7 @@ BB.factory('commentsService', ['$http', 'postsService', '_', function($http, pos
     comment.createdAt = new Date().toISOString().slice(0, 10);
     comment.votes = 0;
     comment.id = _nextID();
+    _extendComment(comment);
     postsService.addComment(comment);
     _updateRecentComments(comment);
     _comments[comment.id] = comment;
@@ -35,12 +37,12 @@ BB.factory('commentsService', ['$http', 'postsService', '_', function($http, pos
     return _comments[comment.id];
   }
 
-  var _extendComment(comment) = function {
+  var _extendComment = function(comment) {
     comment.upvote = function() {
-      this.vote++;
+      this.votes++;
     };
     comment.downvote = function() {
-      this.vote--;
+      this.votes--;
     }
   };
   
@@ -92,6 +94,7 @@ BB.factory('commentsService', ['$http', 'postsService', '_', function($http, pos
 
   return {
     recent: recent,
-    create: create
+    create: create,
+    find: find
   }
 }]);

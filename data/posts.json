@@ -7,25 +7,6 @@
       "name" : "Shakespeare"
     },
     "createdAt" : "2017-01-01",
-    "comments" : [
-      {
-        "id" : "1",
-        "author" : {
-          "name" : "Ben Johnson"
-        },
-        "content" : "I disagree.",
-        "createdAt" : "2017-01-02",
-        "votes" : "2"
-      },
-      {
-        "id" : "2",
-        "author" : {
-          "name" : "Marky Mark"
-        },
-        "content" : "I vehemently disagree.",
-        "createdAt" : "2017-01-03",
-        "votes" : "3"
-      }
-    ]
+    "commentIDs" : ["1", "2"]
   }
 }
