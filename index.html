@@ -62,7 +62,7 @@
               <input type="submit" value="Create Comment" class="btn btn-primary">
             </form>
             <section class="comments">
-              <comment class="comment" ng-repeat="comment in post.comments() | orderBy:'votes':true"></comment>
+              <comment submit-handler="createComment(form, params, commentableID, commentableType)" comment="comment" class="comment" ng-repeat="comment in post.comments() | orderBy:'votes':true"></comment>
             </section>
           </article>
         </main>

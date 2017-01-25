@@ -25,8 +25,7 @@ BB.controller('PostsCtrl', ['$scope', 'postsService', 'commentsService', '_',
       params.author.name = null;
       params.content = null;
       form.$setPristine();
-      console.log('comments', $scope.posts['1'].comments())
-      console.log('comment ids', $scope.posts['1'].commentIDs)
+      console.log($scope.posts['1'].comments())
     }
 
     var _extendPost = function(post) {

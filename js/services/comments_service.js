@@ -31,14 +31,16 @@ BB.factory('commentsService', ['$http', 'postsService', '_', function($http, pos
     comment.votes = 0;
     comment.id = _nextID();
     _extendComment(comment);
-    if (comment.commentableType === "post") {
+    if (comment.commentable.type === "post") {
       postsService.addComment(comment); 
     } else {
+      console.log("comment comment")
       _addChildComment(comment);
     }
     _updateRecentComments(comment);
     _comments[comment.id] = comment;
     _incrementID();
+    console.log(comment)
     return _comments[comment.id];
   }
 
@@ -54,6 +56,8 @@ BB.factory('commentsService', ['$http', 'postsService', '_', function($http, pos
     comment.downvote = function() {
       this.votes--;
     };
+
+    comment.commentIDs = comment.commentIDs || [];
 
     comment.comments = function() {
       if (this.commentIDs.length === 0) { return false }

@@ -1,7 +1,10 @@
 BB.directive('comment', function() {
   return {
     restrict: 'E',
-    scope: true,
+    scope: {
+      comment: '=',
+      submitHandler: '&'
+    },
     templateUrl: '/js/directives/commentTemplate.html'
   }
 })

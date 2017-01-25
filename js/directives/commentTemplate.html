@@ -5,7 +5,7 @@
   <h3>{{ comment.author.name }}</h3>
   <p>Commented on {{ comment.createdAt | date: 'MMMM d, y'}}</p>
   <p>"{{ comment.content }}"</p>
-  <form name="newComment" ng-submit="createComment(newComment, newComment, comment.id, 'comment')" class="form-inline">
+  <form name="newComment" ng-submit="submitHandler({ form:  newCommentForm, params: newComment, commentableID: comment.id, commentableType: 'comment'})" class="form-inline">
     <input type="text" class="form-control" ng-model="newComment.author.name" placeholder="author">
     <input type="text" class="form-control" ng-model="newComment.content" placeholder="content">
     <input type="submit" class="btn btn-primary" value="Comment">
@@ -15,7 +15,7 @@
     <comment class="comment" ng-repeat="comment in comment.comments() | orderBy:'votes':true"></comment>
   </div> -->
     <ul>
-        <li ng-repeat="comment in comment.comments" ng-include="'comment-tree.html'"></li>
+        <li ng-repeat="comment in comment.comments()| orderBy:'votes':true" ng-include="'comment-tree.html'"></li>
     </ul>
 </script>
 
@@ -25,12 +25,12 @@
 <h3>{{ comment.author.name }}</h3>
 <p>Commented on {{ comment.createdAt | date: 'MMMM d, y'}}</p>
 <p>"{{ comment.content }}"</p>
-<form name="newComment" ng-submit="createComment(newComment, newComment, comment.id, 'comment')" class="form-inline">
+<form name="newCommentForm" ng-submit="submitHandler({ form:  newCommentForm, params: newComment, commentableID: comment.id, commentableType: 'comment'})" class="form-inline">
   <input type="text" class="form-control" ng-model="newComment.author.name" placeholder="author">
   <input type="text" class="form-control" ng-model="newComment.content" placeholder="content">
   <input type="submit" class="btn btn-primary" value="Comment">
 </form>
 
 <ul>
-    <li ng-repeat="comment in comment.comments" ng-include="'comment-tree.html'"></li>
+    <li ng-repeat="comment in comment.comments()| orderBy:'votes':true" ng-include="'comment-tree.html'"></li>
 </ul>
