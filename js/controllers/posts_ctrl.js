@@ -4,7 +4,7 @@ BB.controller('PostsCtrl', ['$scope', 'postsService', 'commentsService', '_',
     $scope.posts = {};
 
     postsService.getAll().then(function(posts) {
-      // console.log(posts)
+      console.log(posts)
       _.each(posts, function(post, id) {
         _extendPost(post);
       });

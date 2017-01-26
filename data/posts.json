@@ -8,5 +8,16 @@
     },
     "createdAt" : "2017-01-01",
     "commentIDs" : ["1", "2"]
+  },
+
+  "2": {
+    "id" : "2",
+    "title" : "The Worst Post Ever",
+    "content" : "So many stupid things to say.",
+    "author" : {
+      "name" : "Adolfo"
+    },
+    "createdAt" : "2017-01-01",
+    "commentIDs" : []
   }
 }
